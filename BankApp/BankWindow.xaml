@@ -5,21 +5,109 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BankApp"
         mc:Ignorable="d"
-        Title="Bank Account Simulator" Height="500" Width="800">
+        Title="Bank Account Simulator" Height="900" Width="900"
+        Background="#F5F5F5">
     <Grid>
-        <TextBlock Text="Welcome to Your Bank Account" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"/>
+        <!-- Header Section -->
+        <Border Background="#1976D2" Padding="0,20,0,20">
+            <TextBlock Name="txtWelcome" Text="Welcome to Your Bank Account" 
+                     FontSize="28" FontWeight="Bold" 
+                     Foreground="White"
+                     HorizontalAlignment="Center"/>
+        </Border>
 
-        <TextBlock Text="Amount:" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,50,0,0"/>
-        <TextBox Name="txtAmount" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,50,0,0"/>
+        <!-- Main Content -->
+        <Grid Margin="20,100,20,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <TextBlock Text="Balance:" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,90,0,0"/>
-        <TextBlock Name="txtBalance" Text="$0.00" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,90,0,0"/>
+            <!-- Account Balance Section -->
+            <Border Grid.Row="0" Background="White" CornerRadius="5" Padding="20" Margin="0,0,0,20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Current Balance:" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Name="txtBalance" Text="$0.00" FontSize="24" FontWeight="Bold" 
+                             Foreground="#1976D2" Grid.Column="1" Margin="20,0,0,0"/>
+                </Grid>
+            </Border>
 
-        <Button Name="btnDeposit" Content="Deposit" Width="120" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,140,0,0" Click="btnDeposit_Click"/>
-        <Button Name="btnWithdraw" Content="Withdraw" Width="120" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="160,140,0,0" Click="btnWithdraw_Click"/>
-        <Button Name="btnLogout" Content="Logout" Width="120" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,140,0,0" Click="btnLogout_Click"/>
+            <!-- Transaction Section -->
+            <Border Grid.Row="1" Background="White" CornerRadius="5" Padding="20" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Quick Transactions" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Name="txtAmount" Width="200" Height="35" 
+                                VerticalContentAlignment="Center" Padding="5"
+                                Text="Enter amount"/>
+                        <Button Name="btnDeposit" Content="Deposit" Width="120" Height="35" 
+                                Background="#4CAF50" Foreground="White" Margin="20,0,0,0"
+                                Grid.Column="1" Click="btnDeposit_Click"/>
+                        <Button Name="btnWithdraw" Content="Withdraw" Width="120" Height="35"
+                                Background="#F44336" Foreground="White" Margin="10,0,0,0"
+                                Grid.Column="2" Click="btnWithdraw_Click"/>
+                        <Button Name="btnLogout" Content="Logout" Width="120" Height="35"
+                                Background="#9E9E9E" Foreground="White" Margin="10,0,0,0"
+                                Grid.Column="3" Click="btnLogout_Click"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
 
-        <TextBlock Text="Transaction History:" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,190,0,0"/>
-        <ListBox Name="lstTransactions" Width="400" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,220,0,0"/>
+            <!-- Transfer Section -->
+            <Border Grid.Row="2" Background="White" CornerRadius="5" Padding="20" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Transfer Money" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Recipient Username:" FontSize="16" 
+                                 VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <TextBox Name="txtRecipient" Width="200" Height="35" Grid.Column="1"
+                                VerticalContentAlignment="Center" Padding="5"
+                                Text="Enter recipient username"/>
+
+                        <TextBlock Text="Transfer Amount:" FontSize="16" Grid.Row="1"
+                                 VerticalAlignment="Center" Margin="0,10,10,0"/>
+                        <TextBox Name="txtTransferAmount" Width="200" Height="35" Grid.Column="1" Grid.Row="1"
+                                VerticalContentAlignment="Center" Padding="5" Margin="0,10,0,0"
+                                Text="Enter amount to transfer"/>
+
+                        <Button Name="btnTransfer" Content="Transfer" Width="120" Height="35" Grid.Row="2" Grid.Column="1"
+                                Background="#2196F3" Foreground="White" Margin="0,15,0,0"
+                                Click="btnTransfer_Click"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Transaction History Section -->
+            <Border Grid.Row="3" Background="White" CornerRadius="5" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="Transaction History" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+                    <ListBox Name="lstTransactions" Height="200" 
+                            BorderThickness="1" BorderBrush="#E0E0E0"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Window> 

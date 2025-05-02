@@ -5,19 +5,78 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BankApp"
         mc:Ignorable="d"
-        Title="Bank Login" Height="300" Width="400">
+        Title="Bank Login" Height="450" Width="400"
+        Background="#F5F5F5"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-        <TextBlock Text="Bank Account Login" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"/>
+        <!-- Header Section -->
+        <Border Background="#1976D2" Padding="0,20,0,20">
+            <TextBlock Text="Bank Account Login" 
+                     FontSize="28" FontWeight="Bold" 
+                     Foreground="White"
+                     HorizontalAlignment="Center"/>
+        </Border>
 
-        <TextBlock Text="Username:" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,70,0,0"/>
-        <TextBox Name="txtUsername" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,70,0,0"/>
+        <!-- Main Content -->
+        <Grid Margin="20,20,20,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <TextBlock Text="Password:" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,110,0,0"/>
-        <PasswordBox Name="txtPassword" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,110,0,0"/>
+            <!-- Login Form -->
+            <Border Grid.Row="0" Background="White" CornerRadius="5" Padding="20" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Login to Your Account" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+                    
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-        <Button Name="btnLogin" Content="Login" Width="120" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,160,0,0" Click="btnLogin_Click"/>
-        <Button Name="btnCreateAccount" Content="Create Account" Width="120" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,200,0,0" Click="btnCreateAccount_Click"/>
+                        <TextBlock Text="Username:" FontSize="16" 
+                                 VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <TextBox Name="txtUsername" Width="200" Height="35" Grid.Column="1"
+                                VerticalContentAlignment="Center" Padding="5"
+                                Text="Enter username"/>
 
-        <TextBlock Name="txtMessage" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,240,0,0" TextWrapping="Wrap" Width="350"/>
+                        <TextBlock Text="Password:" FontSize="16" Grid.Row="1"
+                                 VerticalAlignment="Center" Margin="0,10,10,0"/>
+                        <PasswordBox Name="txtPassword" Width="200" Height="35" Grid.Column="1" Grid.Row="1"
+                                   VerticalContentAlignment="Center" Padding="5" Margin="0,10,0,0"/>
+
+                        <Button Name="btnLogin" Content="Login" Width="120" Height="35" Grid.Row="2" Grid.Column="1"
+                                Background="#1976D2" Foreground="White" Margin="0,20,0,0"
+                                Click="btnLogin_Click"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Create Account Section -->
+            <Border Grid.Row="1" Background="White" CornerRadius="5" Padding="20" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="New to Our Bank?" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+                    <Button Name="btnCreateAccount" Content="Create New Account" Width="200" Height="35"
+                            Background="#4CAF50" Foreground="White"
+                            Click="btnCreateAccount_Click"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Message Display -->
+            <Border Grid.Row="2" Background="White" CornerRadius="5" Padding="20">
+                <TextBlock Name="txtMessage" TextWrapping="Wrap" 
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         FontSize="14"/>
+            </Border>
+        </Grid>
     </Grid>
 </Window> 

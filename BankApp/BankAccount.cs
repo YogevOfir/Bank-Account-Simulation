@@ -12,6 +12,11 @@ namespace BankApp
             }
             return accounts[username];
         }
+
+        public static bool AccountExists(string username)
+        {
+            return accounts.ContainsKey(username);
+        }
     }
 
     public class BankAccount
@@ -43,6 +48,31 @@ namespace BankApp
                 return true;
             }
             return false;
+        }
+
+        public bool Transfer(string recipientUsername, double amount)
+        {
+            if (amount <= 0 || amount > Balance)
+            {
+                return false;
+            }
+
+            if (!BankAccountManager.AccountExists(recipientUsername))
+            {
+                return false;
+            }
+
+            BankAccount recipient = BankAccountManager.GetOrCreateAccount(recipientUsername);
+            
+            // Withdraw from sender
+            Balance -= amount;
+            TransactionHistory.Add($"Transfer to {recipientUsername}: -{amount:C} (New Balance: {Balance:C})");
+            
+            // Deposit to recipient
+            recipient.Balance += amount;
+            recipient.TransactionHistory.Add($"Transfer from {AccountHolder}: +{amount:C} (New Balance: {recipient.Balance:C})");
+            
+            return true;
         }
     }
 } 

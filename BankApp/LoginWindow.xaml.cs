@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace BankApp
@@ -8,22 +9,47 @@ namespace BankApp
         public LoginWindow()
         {
             InitializeComponent();
+            SetupPlaceholderText();
         }
 
-        private void SetMessage(string message, bool isSuccess)
+        private void SetupPlaceholderText()
         {
-            txtMessage.Text = message;
-            txtMessage.Foreground = isSuccess ? Brushes.Green : Brushes.Red;
+            txtUsername.Text = "Enter username";
+            txtUsername.Foreground = Brushes.Gray;
+
+            txtUsername.GotFocus += (sender, e) =>
+            {
+                if (txtUsername.Text == "Enter username")
+                {
+                    txtUsername.Text = "";
+                    txtUsername.Foreground = Brushes.Black;
+                }
+            };
+
+            txtUsername.LostFocus += (sender, e) =>
+            {
+                if (string.IsNullOrWhiteSpace(txtUsername.Text))
+                {
+                    txtUsername.Text = "Enter username";
+                    txtUsername.Foreground = Brushes.Gray;
+                }
+            };
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            string username = txtUsername.Text;
+            string username = txtUsername.Text.Trim();
             string password = txtPassword.Password;
 
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            if (username == "Enter username" || string.IsNullOrWhiteSpace(username))
             {
-                SetMessage("Please enter both username and password.", false);
+                MessageBox.Show("Please enter your username.", "Login Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Please enter your password.", "Login Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -35,28 +61,43 @@ namespace BankApp
             }
             else
             {
-                SetMessage("Invalid username or password.", false);
+                MessageBox.Show("Invalid username or password. Please try again.", "Login Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                txtPassword.Password = "";
             }
         }
 
         private void btnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
-            string username = txtUsername.Text;
+            string username = txtUsername.Text.Trim();
             string password = txtPassword.Password;
 
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            if (username == "Enter username" || string.IsNullOrWhiteSpace(username))
             {
-                SetMessage("Please enter both username and password.", false);
+                MessageBox.Show("Please enter a username.", "Create Account Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Please enter a password.", "Create Account Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (password.Length < 6)
+            {
+                MessageBox.Show("Password must be at least 6 characters long.", "Create Account Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (UserManager.CreateUser(username, password))
             {
-                SetMessage("Account created successfully! Please login.", true);
+                MessageBox.Show("Account created successfully! Please login with your new credentials.", "Account Created", MessageBoxButton.OK, MessageBoxImage.Information);
+                txtPassword.Password = "";
             }
             else
             {
-                SetMessage("Username already exists. Please choose another.", false);
+                MessageBox.Show("Username already exists. Please choose another username.", "Create Account Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                txtPassword.Password = "";
             }
         }
     }

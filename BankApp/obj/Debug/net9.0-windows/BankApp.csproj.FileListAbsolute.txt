@@ -20,3 +20,4 @@ E:\Projects\Bank Account Simulation\BankApp\obj\Debug\net9.0-windows\LoginWindow
 E:\Projects\Bank Account Simulation\BankApp\obj\Debug\net9.0-windows\BankWindow.g.cs
 E:\Projects\Bank Account Simulation\BankApp\obj\Debug\net9.0-windows\LoginWindow.baml
 E:\Projects\Bank Account Simulation\BankApp\obj\Debug\net9.0-windows\BankWindow.baml
+E:\Projects\Bank Account Simulation\BankApp\obj\Debug\net9.0-windows\BankApp.sourcelink.json
